@@ -1,10 +1,7 @@
 # Python-Task-4
 #This is my task4 in python  developer internship----07/08/2025
 from flask import Flask, request, jsonify
-
 app = Flask(__name__)
-
-# In-memory user storage, example structure: {user_id: user_data}
 users = {}
 @app.route('/users', methods=['GET'])
 def get_users():
