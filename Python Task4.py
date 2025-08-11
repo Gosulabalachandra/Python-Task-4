@@ -6,13 +6,9 @@ app = Flask(__name__)
 
 # In-memory user storage, example structure: {user_id: user_data}
 users = {}
-
-# GET all users
 @app.route('/users', methods=['GET'])
 def get_users():
     return jsonify(users), 200
-
-# GET a single user by user_id
 @app.route('/users/<user_id>', methods=['GET'])
 def get_user(user_id):
     user = users.get(user_id)
@@ -20,8 +16,6 @@ def get_user(user_id):
         return jsonify(user), 200
     else:
         return jsonify({'error': 'User not found'}), 404
-
-# POST create a new user
 @app.route('/users', methods=['POST'])
 def create_user():
     data = request.json
@@ -32,8 +26,6 @@ def create_user():
         return jsonify({'error': 'User id already exists'}), 409
     users[user_id] = data
     return jsonify({'message': 'User created', 'user': data}), 201
-
-# PUT update an existing user by user_id
 @app.route('/users/<user_id>', methods=['PUT'])
 def update_user(user_id):
     if user_id not in users:
@@ -41,8 +33,6 @@ def update_user(user_id):
     data = request.json
     users[user_id].update(data)
     return jsonify({'message': 'User updated', 'user': users[user_id]}), 200
-
-# DELETE a user by user_id
 @app.route('/users/<user_id>', methods=['DELETE'])
 def delete_user(user_id):
     if user_id in users:
